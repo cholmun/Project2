@@ -21,6 +21,18 @@ class RecipeService {
     const recipe = await Recipe.create(recipeData);
     return recipe;
   }
+
+  // GET randomm recipe
+  static async getRandomRecipe() {
+    const apiKey = process.env.THEMEALDB_API_KEY;
+    const url = `https://www.themealdb.com/api/json/v1/1/random.php`;
+
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+
+    return response.data.meals[0]; 
+  }
 }
 
 export default RecipeService;
