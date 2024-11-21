@@ -1,43 +1,55 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import "./response.css";
-export default function Response() {
+
+const Response: React.FC = () => {
+  const location = useLocation();
+  const { recipes }: { recipes: { strMeal: string; strMealThumb: string }[] } = location.state || { recipes: [] };
+
   return (
     <>
       <nav className="navbar is-black is-fixed-top">
         <div className="navbar-brand">
-          <Link to="/" className="navbar-item has-text-white is-size-5">
+          <a href="/" className="navbar-item has-text-white is-size-5">
             Chef Knows Best
-          </Link>
+          </a>
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
-            <Link to="/about" className="navbar-item has-text-white is-size-5">
+            <a href="/about" className="navbar-item has-text-white is-size-5">
               About
-            </Link>
-            <Link
-              to="/contact"
-              className="navbar-item has-text-white is-size-5"
-            >
+            </a>
+            <a href="/contact" className="navbar-item has-text-white is-size-5">
               Contact Us
-            </Link>
-            <Link
-              to="/questions"
-              className="navbar-item has-text-white is-size-5 suggest-link"
-            >
+            </a>
+            <a href="/questions" className="navbar-item has-text-white is-size-5 suggest-link">
               Suggest
-            </Link>
+            </a>
           </div>
         </div>
       </nav>
 
       <div className="resultSection">
         <h1 className="responseHeader">Featured Recipes</h1>
-        <div className="card">
-          <header className="card-header">
-            <p className="card-header-title">Lasagna</p>
-          </header>
-        </div>
+        {recipes.length > 0 ? (
+          recipes.map((recipe, index) => (
+            <div className="card" key={index}>
+              <header className="card-header">
+                <p className="card-header-title">{recipe.strMeal}</p>
+              </header>
+              <div className="card-content">
+                <div className="content">
+                  <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No recipes found.</p>
+        )}
       </div>
     </>
   );
-}
+};
+
+export default Response;

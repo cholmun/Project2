@@ -6,10 +6,7 @@ class RecipeService {
     const apiKey = process.env.THEMEALDB_API_KEY;
     const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`;
 
-    const response = await axios.get(url, {
-      headers: { Authorization: `Bearer ${apiKey}` },
-    });
-
+    const response = await axios.get(url);
     return response.data.meals;
   }
 

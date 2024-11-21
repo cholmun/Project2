@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./questions.css";
 
@@ -9,9 +9,10 @@ interface Ingredient {
 export default function Questions() {
   const [ingreList, setIngreList] = useState<Ingredient[]>([]);
   const [ingredient, setIngredient] = useState("");
+  const navigate = useNavigate();
 
   const addIngredient = () => {
-    if (ingredient != "") {
+    if (ingredient !== "") {
       const newIngredient: Ingredient = { name: ingredient };
       setIngreList((oldList) => [...oldList, newIngredient]);
       setIngredient("");
@@ -19,10 +20,20 @@ export default function Questions() {
   };
 
   const removeIndgredient = (indexVal: number) => {
-    // console.log(ingreList);
     const newList = [...ingreList];
     newList.splice(indexVal, 1);
     setIngreList(newList);
+  };
+
+  const handleSubmit = async () => {
+    const ingredients = ingreList.map((ing) => ing.name).join(",");
+    try {
+      const response = await fetch(`http://localhost:3001/api/recipes?ingredients=${ingredients}`);
+      const data = await response.json();
+      navigate("/response", { state: { recipes: data } });
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
   };
 
   return (
@@ -38,16 +49,10 @@ export default function Questions() {
             <Link to="/about" className="navbar-item has-text-white is-size-5">
               About
             </Link>
-            <Link
-              to="/contact"
-              className="navbar-item has-text-white is-size-5"
-            >
+            <Link to="/contact" className="navbar-item has-text-white is-size-5">
               Contact Us
             </Link>
-            <Link
-              to="/questions"
-              className="navbar-item has-text-white is-size-5 suggest-link"
-            >
+            <Link to="/questions" className="navbar-item has-text-white is-size-5 suggest-link">
               Suggest
             </Link>
           </div>
@@ -80,16 +85,15 @@ export default function Questions() {
             {ingreList.map((ingredient, indexVal) => (
               <li className="listText" key={indexVal}>
                 {ingredient.name}
-
                 <button onClick={() => removeIndgredient(indexVal)}>
                   &#10060;
                 </button>
               </li>
             ))}
           </ul>
-          <Link to="/response">
-            <button className="button is-danger is-dark">Submit!</button>
-          </Link>
+          <button onClick={handleSubmit} className="button is-danger is-dark">
+            Submit!
+          </button>
         </div>
       </div>
     </>
