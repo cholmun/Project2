@@ -1,0 +1,39 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+
+.responseHeader {
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  padding-bottom: 500px;
+  color: black;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  display: flex;
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+.resultSection {
+  display: flex;
+  width: 800px;
+  height: 600px;
+  background-color: grey;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  border: 2px solid black;
+  box-sizing: border-box;
+  overflow: hidden;
+  gap: 20px;
+}
+
+.card {
+  width: 750px;
+  align-items: center;
+  padding: 20px;
+  text-align: left;
+}

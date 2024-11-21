@@ -3,6 +3,7 @@ import lasagna from "../../assets/lasagna.jpg";
 import shrimp from "../../assets/shrimpScampi.jpeg";
 import alaVodka from "../../assets/penneAllaVodka.jpg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const sampleRecipes = [
   {
@@ -39,17 +40,27 @@ export default function Home() {
     <>
       <nav className="navbar is-black is-fixed-top">
         <div className="navbar-brand">
-          <a className="navbar-item has-text-white is-size-5">
+          <Link to="/" className="navbar-item has-text-white is-size-5">
             Chef Knows Best
-          </a>
+          </Link>
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
-            <a className="navbar-item has-text-white is-size-5">About</a>
-            <a className="navbar-item has-text-white is-size-5">Contact Us</a>
-            <a className="navbar-item has-text-white is-size-5 suggest-link">
+            <Link to="/about" className="navbar-item has-text-white is-size-5">
+              About
+            </Link>
+            <Link
+              to="/contact"
+              className="navbar-item has-text-white is-size-5"
+            >
+              Contact Us
+            </Link>
+            <Link
+              to="/questions"
+              className="navbar-item has-text-white is-size-5 suggest-link"
+            >
               Suggest
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -65,7 +76,7 @@ export default function Home() {
 
         <div className="recipe-container">
           <h2 className="title is-3">{selectedRecipe.title}</h2>
-          <p>{selectedRecipe.ingredients}</p>
+          <p>Ingredients: {selectedRecipe.ingredients}</p>
 
           <button className="arrow left-arrow" onClick={prevRecipe}>
             {" "}
