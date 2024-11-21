@@ -13,6 +13,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["C:/Users/cholm/bootcamp/Project-2/Project2/Server/src"],
+  "include": ["Server/src"],
   "exclude": ["node_modules"]
 }
