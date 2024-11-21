@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/config';
+import sequelize from '../config/connection';
 
 class RecipeIngredient extends Model {
   public recipeId!: number;

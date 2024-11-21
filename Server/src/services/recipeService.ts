@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Recipe from '../models/recipe'; // Import the Recipe model
+import Recipe from '../models/Recipe';
 
 class RecipeService {
   static async getRecipesByIngredients(ingredients: string) {
