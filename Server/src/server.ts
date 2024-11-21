@@ -1,13 +1,26 @@
 import express from 'express';
-const app = express();
-const PORT = 3001;
+import dotenv from 'dotenv';
+import sequelize from './config/connection';
+import authRoutes from './routes/authRoutes';
+import recipeRoutes from './routes/recipeRoutes';
 
-// Simple route to test the server.
-app.get('/', (req: express.Request, res: express.Response) => {
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(express.json());
+app.use('/api/auth', authRoutes);
+app.use('/api/recipes', recipeRoutes);
+
+app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}).catch((error) => {
+  console.error('Unable to connect to the database:', error);
 });

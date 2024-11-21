@@ -1,18 +1,38 @@
 import axios from 'axios';
+import Recipe from '../models/recipe';
 
-const API_KEY = process.env.THEMEALDB_API_KEY;
-const API_URL = 'https://www.themealdb.com/api/json/v1/1';
+class RecipeService {
+  static async getRecipesByIngredients(ingredients: string) {
+    const apiKey = process.env.THEMEALDB_API_KEY;
+    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`;
 
-export const getRecipesByIngredients = async (ingredients: string[]) => {
-    try {
-        const response = await axios.get(API_URL, { 
-            params: {
-                i: ingredients.join(',')
-            }
-        });
-        return response.data;
-        } catch (error) {
-            console.error('Error fetching recipes:', error);
-            throw new Error('Unable to fetch recipes');
-        }
-        };
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+
+    return response.data.meals;
+  }
+
+  static async addRecipe(recipeData: {
+    name: string;
+    ingredients: string;
+    instructions: string;
+  }) {
+    const recipe = await Recipe.create(recipeData);
+    return recipe;
+  }
+
+  // GET randomm recipe
+  static async getRandomRecipe() {
+    const apiKey = process.env.THEMEALDB_API_KEY;
+    const url = `https://www.themealdb.com/api/json/v1/1/random.php`;
+
+    const response = await axios.get(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+
+    return response.data.meals[0]; 
+  }
+}
+
+export default RecipeService;
