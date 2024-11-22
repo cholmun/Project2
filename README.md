@@ -83,7 +83,8 @@ Save favorite recipes or add personal recipes to the database.
 Deployed Application
 Check out the live site here: https://chef-knows-best.onrender.com/
 
-Contacts
+Contacts/Github
+https://github.com/cholmun/Project2
 nicolas6jimenez13@gmail.com 
 kevingarts@gmail.com
 c.holmun55@gmail.com
