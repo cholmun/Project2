@@ -34,6 +34,8 @@ Deployment: Render
 
 APIs Used:
 TheMealDB (Primary Recipe Data)
+Spoonacular (API)
+
 Environment Management: dotenv
 
 Features
